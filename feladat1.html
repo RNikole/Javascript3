@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feladat 1</title>
+</head>
+<body>
+    <h1>Szöveg átalaítása kisbetűsre/nagybetűsre</h1>
+    <form name="szoveg_atalakitas" method="POST">
+        <label for="user_text">Adja meg az átalakítandó szöveget:</label>
+        <input id="user_text" type="text"name="user_text">
+        <br><br>
+        Válasszon egy opciót:
+        <br>
+        <input type="radio" name="text_mod" id="lower_case" value="lower_case">
+        <label for="lower_case">Kisbetűsre!</label>
+        <input type="radio" name="text_mod" id="upper_case" value="upper_case">
+        <label for="upper_case">Nagybetűsre!</label>
+        <br><br>
+        <button id="atalakitas" type="button">Átalakítás végrehajtása</button>
+    </form> 
+    <p id="eredmeny"></p>
+    <script type="text/javascript">
+        document.getElementById('atalakitas').addEventListener('click', () => {
+        let user_text = document.forms['szoveg_atalakitas']['user_text'].value;
+        let text_mod = document.forms['szoveg_atalakitas']['text_mod'].value;
+        let minden_kitoltve = true;
+        let atalakitas_tipus;
+        
+        if (user_text === '') {
+            minden_kitoltve = false;
+            alert('Kötelező megadni szöveget!')
+        }
+        if (text_mod === '') {
+            minden_kitoltve = false;
+            alert('Kötelező választani egy opciót!')
+        }
+        if (minden_kitoltve) {
+            if (text_mod == "upper_case"){
+                document.getElementById("eredmeny").textContent = "Erdedmény: " + user_text.toUpperCase();
+            } else {
+                document.getElementById("eredmeny").textContent = "Erdedmény: " + user_text.toLowerCase();
+            }
+                
+        }
+    }); 
+    </script>
+</body>
+</html>

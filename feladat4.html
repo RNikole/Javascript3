@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feladat 4</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+	<script src="bootstrap.min.js"></script>
+</head>
+<body>
+ <section>
+  <div class="container">
+
+    <h1 class="text-center m-5">Űrlap sablon</h1>
+    <form name="urlap" method="POST">
+        <div class="form-group">
+        <label for="szoveg" class="font-weight-bold">Szöveg beviteli példa:</label>
+        <input id="szoveg" type="text" placeholder="Ide jön a szöveg" name="szoveg" class="form-control">
+        <br>
+        <label for="sok_szoveg" class="font-weight-bold">Hosszú szöveg beviteli példa:</label><br>
+        <textarea id="sok_szoveg" name="sok_szoveg" class="form-control" rows="4" cols="50" placeholder="Ide jön a hosszú szöveg"></textarea>
+        <br>
+        <label for="jelszo" class="font-weight-bold">Jelszó beviteli példa:</label>
+        <input type="password" id="jelszo" name="jelszo" class="form-control">
+        <br>
+        <label for="datum" class="font-weight-bold">Dátum beviteli példa:</label>
+        <input type="date" id="datum" placeholder="Ide jön a dátum" name="szul_datum" class="form-control">
+        <br>
+        <p class="font-weight-bold">Select példa:</p>
+        <select name="select1" id="select1" class="form-control">
+            <option value="1">opció 1</option>
+            <option value="2">opció 2</option>
+        </select>
+        <br>
+        <p class="font-weight-bold">Checkbox példa:</p>
+        <div class="form-check">
+            <input type="checkbox" name="checkbox_lista[]" id="checkbox1" value="checkbox1" class="form-check-input">
+            <label class="form-check-label mr-2" for="checkbox1">opció 1</label>
+            <input type="checkbox" name="checkbox_lista[]" id="checkbox2" value="checkbox2" class="form-check-input">
+            <label class="form-check-label mr-2" for="checkbox2">opció 2</label>
+            <input type="checkbox" name="checkbox_lista[]" id="checkbox3" value="checkbox3" class="form-check-input">
+            <label class="form-check-label mr-2" for="checkbox3">opció 3</label>
+        </div>
+        <br>
+        <p class="font-weight-bold">Likert skála példa:</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kérdések</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mennyire ért egyet?</td>
+                    <td><input type="radio" value="1" name="kerdes1"/></td>
+                    <td><input type="radio" value="2" name="kerdes1"/></td>
+                    <td><input type="radio" value="3" name="kerdes1"/></td>
+                    <td><input type="radio" value="4" name="kerdes1"/></td>
+                    <td><input type="radio" value="5" name="kerdes1"/></td>
+                </tr>
+                <tr>
+                    <td>Mennyire nem ért egyet?</td>
+                    <td><input type="radio" value="1" name="kerdes2"/></td>
+                    <td><input type="radio" value="2" name="kerdes2"/></td>
+                    <td><input type="radio" value="3" name="kerdes2"/></td>
+                    <td><input type="radio" value="4" name="kerdes2"/></td>
+                    <td><input type="radio" value="5" name="kerdes2"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button id="gomb" type="button" class="btn btn-primary">Gomb</button>
+        </div>  
+    </form>
+
+  </div>
+ </section>
+
+    <script type="text/javascript">
+       document.getElementById('gomb').addEventListener('click', () => {
+        let szoveg = document.forms['urlap']['szoveg'].value;
+        let sok_szoveg = document.forms['urlap']['sok_szoveg'].value;
+        let jelszo = document.forms['urlap']['jelszo'].value;
+        let datum = document.forms['urlap']['datum'].value;
+        let select1 = document.forms['urlap']['select1'].value;
+        let checkbox_lista = document.forms['urlap']['checkbox_lista[]'];
+        let checkbox_lista_kivalasztott = [];
+        let kerdes1 = document.forms['urlap']['kerdes1'].value;
+        let kerdes2 = document.forms['urlap']['kerdes2'].value;
+
+        for (let index = 0; index < checkbox_lista.length; index++) {
+            const element = checkbox_lista[index];
+            if (element.type == 'checkbox' && element.checked == true) {
+                checkbox_lista_kivalasztott.push(element.value);
+            }
+        }
+
+        let minden_kitoltve = true;
+        if (szoveg === '') {
+            minden_kitoltve = false;
+            alert('A szöveg mező kitöltése kötelező!')
+        }
+        if (sok_szoveg === '') {
+            minden_kitoltve = false;
+            alert('A sok szöveg mező kitöltése kötelező!')
+        }
+        if (jelszo === '') {
+            minden_kitoltve = false;
+            alert('A jelszó mező kitöltése kötelező!')
+        }
+        if (datum === '') {
+            minden_kitoltve = false;
+            alert('A dátum mező kitöltése kötelező!')
+        }
+        if (select1 === '') {
+            minden_kitoltve = false;
+            alert('A select példánál egy opció kiválasztása kötelező!')
+        }
+        if (checkbox_lista_kivalasztott.length == 0) {
+            minden_kitoltve = false;
+            alert('A checkbox példánál egy opció kiválasztása kötelező!')
+        }
+        if (kerdes1 === '') {
+            minden_kitoltve = false;
+            alert('A likert példánál az első kérdéshez egy pontszám kiválasztása kötelező!')
+        }
+        if (kerdes2 === '') {
+            minden_kitoltve = false;
+            alert('A likert példánál a második kérdéshez egy pontszám kiválasztása kötelező!')
+        }
+
+        if (minden_kitoltve) {
+            let adatok = {
+                szoveg: szoveg,
+                sok_szoveg: sok_szoveg,
+                jelszo: jelszo,
+                datum: datum,
+                select: select1,
+                checkbox: checkbox_lista_kivalasztott,
+                kerdes1: kerdes1,
+                kerdes2: kerdes2,
+            };
+            console.log(adatok);
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feladat 3</title>
+</head>
+<body>
+    <h1>Regisztrációs űrlap</h1>
+    <form name="reg_urlap" method="POST">
+        <label for="nev">Felhasználónév: </label>
+        <input id="nev" type="text" placeholder="Felhasználónév" name="nev">
+        <br>
+        <label for="jelszo1">Jelszó:</label>
+        <input type="password" id="jelszo1" name="jelszo1">
+        <label for="jelszo2">Jelszó mégegyszer:</label>
+        <input type="password" id="jelszo2" name="jelszo2">
+        <br>
+        <label for="email">E-mail cím: </label>
+        <input id="email" type="email" placeholder="E-mail cím" name="email">
+        <br>
+        <label for="szul_datum">Születési dátum:</label>
+        <input type="date" id="szul_datum" placeholder="Születési dátum" name="szul_datum">
+        <br><br>
+        <button id="regisztracio" type="button">Regisztráció</button>
+    </form>
+    <script type="text/javascript">
+       document.getElementById('regisztracio').addEventListener('click', () => {
+        let nev = document.forms['reg_urlap']['nev'].value;
+        let email = document.forms['reg_urlap']['email'].value;
+        let jelszo1 = document.forms['reg_urlap']['jelszo1'].value;
+        let jelszo2 = document.forms['reg_urlap']['jelszo2'].value;
+        let szul_datum = document.forms['reg_urlap']['szul_datum'].value;
+        let regex_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let regex_jelszo = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.@$!%*?&])[A-Za-z\d.@$!%*?&]+$/;
+        let minden_kitoltve = true;
+        
+        if (nev === '') {
+            minden_kitoltve = false;
+            alert('A név kitöltése kötelező!')
+        } else if (nev < 5 && nev > 16) {
+            minden_kitoltve = false;
+            alert('A felhasználónév minimum 5, de legfeljebb 16 karakter lehet!')
+        }
+        if (jelszo1 === '') {
+            minden_kitoltve = false;
+            alert('A jelszó megadása kötelező!')
+        } else if (jelszo1.length < 5) {
+            minden_kitoltve = false;
+            alert('A jelszónak minimum 5 karakter hosszúnak kell lennie!')    
+        } else if (jelszo1.match(regex_jelszo)==null) {
+            minden_kitoltve = false;
+            alert("A jelszónak tartalmaznia kell kisbetűt, nagybetűt, számot és speciális karaktert!");
+        }
+        if (jelszo2 === '') {
+            minden_kitoltve = false;
+            alert('A jelszó ismételt megadása kötelező!')
+        } else if (jelszo1 != jelszo2) {
+            minden_kitoltve = false;
+            alert('A megadott jelszavaknak egyezniük kell!')
+        }
+        if (email === '') {
+            minden_kitoltve = false;
+            alert('Az email kitöltése kötelező!')
+        } else if (email.match(regex_email)==null) {
+            minden_kitoltve = false;
+            alert("Érvényes email cím megadása kötelező!");
+        }
+
+        if (minden_kitoltve) {
+            let reg_adatok = {
+                nev: nev,
+                jelszo: jelszo1,
+                email: email,
+                szul_datum: szul_datum,
+            };
+            console.log(reg_adatok);
+        }
+    });
+    </script>
+</body>
+</html>
